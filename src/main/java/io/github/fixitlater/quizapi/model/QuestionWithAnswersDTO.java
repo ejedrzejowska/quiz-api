@@ -15,6 +15,13 @@ public class QuestionWithAnswersDTO {
     private String questionBody;
     private List<AnswerDTO> answers;
 
-
-
+    public void setAnswers(List<AnswerDTO> answers) {
+        this.answers = answers;
+        int answerNo = 1;
+        for (AnswerDTO answerDTO :answers
+             ) {
+            if (answerDTO.getAnswerNo() == 0)
+                answerDTO.setAnswerNo(answerNo++);
+        }
+    }
 }
