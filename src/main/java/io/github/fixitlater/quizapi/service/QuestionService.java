@@ -20,18 +20,14 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public QuestionWithAnswersDTO returnRandomQuestion(){
+    public QuestionWithAnswersDTO getRandomQuestion(){
         List<QuestionEntity> questionEntities = questionRepository.findByIdIsNotNull();
         QuestionEntity questionEntity = questionEntities.get(1);
-        QuestionWithAnswersDTO questionWithAnswersDTO = new QuestionWithAnswersDTO();
+        return QuestionWithAnswersDTO.fromEntity(questionEntity);
+    }
 
-        questionWithAnswersDTO.setQuestionId(questionEntity.getId());
-        questionWithAnswersDTO.setQuestionBody(questionEntity.getQuestionBody());
-        questionWithAnswersDTO.setAnswers(questionEntity.getAnswersEntities()
-                .stream().map(a -> new AnswerDTO(a.getAnswerBody(),a.isCorrect())).collect(Collectors.toList()));
-
-        return questionWithAnswersDTO;
-
+    public List<QuestionWithAnswersDTO> getAllQuestions(){
+        List<QuestionEntity> questionEntities = questionRepository.findAll();
+        return questionEntities.stream().map(QuestionWithAnswersDTO::fromEntity).collect(Collectors.toList());
     }
 }
-
