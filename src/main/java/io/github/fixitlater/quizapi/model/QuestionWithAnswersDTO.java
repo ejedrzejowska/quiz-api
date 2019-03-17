@@ -19,22 +19,24 @@ public class QuestionWithAnswersDTO {
     private String questionBody;
     private List<AnswerDTO> answers;
 
-    public void setAnswers(List<AnswerDTO> answers) {
+    private QuestionWithAnswersDTO setAnswersWithNumbers(List<AnswerDTO> answers) {
         this.answers = answers;
         int answerNo = 1;
-        for (AnswerDTO answerDTO :answers
+        for (AnswerDTO answerDTO :this.answers
              ) {
             if (answerDTO.getAnswerNo() == 0)
                 answerDTO.setAnswerNo(answerNo++);
         }
+        return this;
     }
 
     public static QuestionWithAnswersDTO fromEntity(QuestionEntity questionEntity) {
         return QuestionWithAnswersDTO.builder()
                 .questionId(questionEntity.getId())
                 .questionBody(questionEntity.getQuestionBody())
-                .answers(questionEntity.getAnswersEntities()
-                    .stream().map(a -> new AnswerDTO(a.getAnswerBody(),a.isCorrect())).collect(Collectors.toList()))
-                .build();
+                .build()
+                .setAnswersWithNumbers(questionEntity.getAnswersEntities()
+                    .stream().map(a -> new AnswerDTO(a.getAnswerBody(),a.isCorrect())).collect(Collectors.toList()));
+
     }
 }
