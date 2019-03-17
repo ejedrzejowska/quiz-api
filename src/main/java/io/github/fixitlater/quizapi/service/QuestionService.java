@@ -24,6 +24,7 @@ public class QuestionService {
         List<QuestionEntity> questionEntities = questionRepository.findByIdIsNotNull();
         QuestionEntity questionEntity = questionEntities.get(1);
         QuestionWithAnswersDTO questionWithAnswersDTO = new QuestionWithAnswersDTO();
+
         questionWithAnswersDTO.setQuestionId(questionEntity.getId());
         questionWithAnswersDTO.setQuestionBody(questionEntity.getQuestionBody());
         questionWithAnswersDTO.setAnswers(questionEntity.getAnswersEntities()

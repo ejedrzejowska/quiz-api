@@ -10,4 +10,6 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<QuestionEntity,Long> {
 
      List<QuestionEntity> findByIdIsNotNull();
+
+     List<QuestionEntity> findAll();
 }

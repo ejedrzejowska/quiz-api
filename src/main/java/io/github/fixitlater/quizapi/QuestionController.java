@@ -18,7 +18,7 @@ public class QuestionController {
     }
 
     @GetMapping("/randomQuestion")
-    public ResponseEntity<QuestionWithAnswersDTO> gerRandomQuestion(){
+    public ResponseEntity<QuestionWithAnswersDTO> getRandomQuestion(){
         QuestionWithAnswersDTO questionWithAnswersDTO = questionService.returnRandomQuestion();
         return ResponseEntity.ok(questionWithAnswersDTO);
     }
