@@ -92,10 +92,10 @@ public class QuestionController {
         try {
             id = Long.parseLong(questionId);
         } catch (NumberFormatException e){
-            return null;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         Optional<QuestionWithAnswersDTO> questionWithAnswersDTO = questionService.findQuestionById(id);
-        if (!questionWithAnswersDTO.isPresent()) return null;
+        if (!questionWithAnswersDTO.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return ResponseEntity.ok(questionWithAnswersDTO);
     }
 
