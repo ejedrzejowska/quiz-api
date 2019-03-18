@@ -12,13 +12,7 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionEntity,Long> {
 
-     List<QuestionEntity> findByIdIsNotNull();
-
      List<QuestionEntity> findAll();
-
-     List<QuestionEntity> findByCategory(String category);
-
-     List<QuestionEntity> findByLanguage(String language);
 
      Optional<QuestionEntity> findById(Long id);
 

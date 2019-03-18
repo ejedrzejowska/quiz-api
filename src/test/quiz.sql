@@ -1,0 +1,46 @@
+INSERT INTO question (question_body, category) VALUES
+('Przetłumacz: łazienka', 'ENGLISH'),
+('Przetłumacz: pies jest pod łóżkiem', 'ENGLISH'),
+('Przetłumacz: stół jest w jadalni', 'ENGLISH'),
+('Przetłumacz: książka jest na łóżku', 'ENGLISH'),
+('Przetłumacz: shower', 'ENGLISH'),
+('Przetłumacz: shoes are under the bed', 'ENGLISH'),
+('Przetłumacz: shower is in the bathroom', 'ENGLISH'),
+('Przetłumacz: łóżko jest w sypialni', 'ENGLISH');
+
+INSERT INTO answer (answer_body, is_correct, question_id) VALUES
+('bedroom', 0, 6),
+('shower', 0, 6),
+('bathroom', 1, 6),
+('living room', 0, 6),
+('cat is on the bed', 0, 7),
+('dog is under the bed', 1, 7),
+('cow is in the kitchen', 0, 7),
+('horse is taking a shower', 0, 7),
+('shoes are in the dining room', 0, 8),
+('mouse likes to play in the kitchen', 0, 8),
+('table is in the dining room', 1, 8),
+('table is in the living room', 0, 8),
+('bag is on the bed', 0, 9),
+('notebook is on the balcony', 0, 9),
+('book is under the bed', 0, 9),
+('book is on the bed', 1, 9),
+('szuflada', 0, 10),
+('łazienka', 0, 10),
+('prysznic', 1, 10),
+('szafa', 0, 10),
+('buty są pod łóżkiem', 1, 11),
+('buty są obok łóżka', 0, 11),
+('szafa jest przy łóżku', 0, 11),
+('myszy są pod łóżkiem', 0, 11),
+('prysznic jest w łazience', 1, 12),
+('łazienka ma prysznic', 0, 12),
+('buty są w sypialni', 0, 12),
+('myszy są w łazience', 0, 12),
+('bed is in the bathroom', 0, 13),
+('bag is in the bedroom', 0, 13),
+('bed is in the bedroom', 1, 13),
+('desk is in front of the bed', 0, 13);
+
+
+
