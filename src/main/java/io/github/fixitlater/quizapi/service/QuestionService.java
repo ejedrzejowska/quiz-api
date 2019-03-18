@@ -24,22 +24,8 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public QuestionWithAnswersDTO getRandomQuestion() {
-        return QuestionWithAnswersDTO.fromEntity(getRandomQuestionFromList(questionRepository.findAll()));
-    }
-
     public Optional<QuestionWithAnswersDTO> findQuestionById(Long id) {
         return questionRepository.findById(id).map(QuestionWithAnswersDTO::fromEntity);
-    }
-
-    public List<QuestionWithAnswersDTO> getAllQuestions() {
-        List<QuestionEntity> questionEntities = questionRepository.findAll();
-        return questionEntities.stream().map(QuestionWithAnswersDTO::fromEntity).collect(Collectors.toList());
-    }
-
-    public List<QuestionWithAnswersDTO> getAllQuestionsFromCategory(String category) {
-        List<QuestionEntity> questionEntities = questionRepository.findByCategory(category);
-        return questionEntities.stream().map(QuestionWithAnswersDTO::fromEntity).collect(Collectors.toList());
     }
 
     private QuestionEntity getRandomQuestionFromList(List<QuestionEntity> questionEntities) throws NoSuchElementException {
@@ -55,20 +41,13 @@ public class QuestionService {
         return questionEntityMap.get(randomKey);
     }
 
-    public QuestionWithAnswersDTO getRandomQuestionFromCategory(String category) {
-        return QuestionWithAnswersDTO.fromEntity(getRandomQuestionFromList(questionRepository.findByCategory(category)));
-    }
-
-    public QuestionWithAnswersDTO getRandomQuestionFromLanguage(Language language) {
-        return QuestionWithAnswersDTO.fromEntity(getRandomQuestionFromList(questionRepository.findByLanguage(language.name())));
-    }
-
     public QuestionWithAnswersDTO getRandomQuestionByCategoryAndOrLanguage(Category category, Language language) throws NoSuchElementException {
         String languageString = ((language == Language.ANY) ? "%" : language.name());
         String categoryString = ((category == Category.ANY) ? "%" : category.name());
         try {
             return QuestionWithAnswersDTO.fromEntity(getRandomQuestionFromList(questionRepository.findByCategoryAndOrLanguage(categoryString, languageString)));
         } catch (NoSuchElementException e){
+            e.printStackTrace();
             throw e;
         }
     }

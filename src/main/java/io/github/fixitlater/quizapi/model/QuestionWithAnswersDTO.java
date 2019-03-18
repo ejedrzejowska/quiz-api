@@ -1,5 +1,7 @@
 package io.github.fixitlater.quizapi.model;
 
+import io.github.fixitlater.quizapi.entity.Category;
+import io.github.fixitlater.quizapi.entity.Language;
 import io.github.fixitlater.quizapi.entity.QuestionEntity;
 import io.github.fixitlater.quizapi.model.AnswerDTO;
 import lombok.Builder;
@@ -18,6 +20,8 @@ public class QuestionWithAnswersDTO {
 
     private String questionBody;
     private List<AnswerDTO> answers;
+    private Category category;
+    private Language language;
 
     private QuestionWithAnswersDTO setAnswersWithNumbers(List<AnswerDTO> answers) {
         this.answers = answers;
@@ -34,6 +38,8 @@ public class QuestionWithAnswersDTO {
         return QuestionWithAnswersDTO.builder()
                 .questionId(questionEntity.getId())
                 .questionBody(questionEntity.getQuestionBody())
+                .category(questionEntity.getCategory())
+                .language(questionEntity.getLanguage())
                 .build()
                 .setAnswersWithNumbers(questionEntity.getAnswersEntities()
                     .stream().map(a -> new AnswerDTO(a.getAnswerBody(),a.isCorrect())).collect(Collectors.toList()));
