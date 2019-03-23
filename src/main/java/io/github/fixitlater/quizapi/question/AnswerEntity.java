@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "answer")
@@ -22,6 +22,6 @@ public class AnswerEntity extends BaseEntity {
     private boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", insertable = true)
     private QuestionEntity question;
 }

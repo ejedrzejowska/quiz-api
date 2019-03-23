@@ -19,6 +19,7 @@ public class QuestionEntityToQuestionDTO implements DomainObjectConverter<Questi
                 .language(source.getLanguage())
                 .build();
 
+
          setAnswersWithNumbers(questionDTO,
                  source.getAnswersEntities()
                          .stream().map(a -> new AnswerDTO(a.getAnswerBody(),a.isCorrect())).collect(Collectors.toList()));

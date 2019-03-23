@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "question")
@@ -28,6 +28,6 @@ public class QuestionEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "language", length = 45)
     private Language language;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.PERSIST)
     private List<AnswerEntity> answersEntities;
 }
