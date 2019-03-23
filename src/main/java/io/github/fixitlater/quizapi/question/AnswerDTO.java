@@ -1,19 +1,18 @@
 package io.github.fixitlater.quizapi.question;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@AllArgsConstructor
-@Getter
-@Setter
-class AnswerDTO {
+import javax.validation.constraints.NotBlank;
+
+@Data
+public class AnswerDTO {
     private int answerNo;
+    @NotBlank
     private String answerBody;
     private boolean isCorrect;
 
-    AnswerDTO(String answerBody, boolean isCorrect) {
+    public AnswerDTO(String answerBody, boolean isCorrect) {
         this.answerNo = 0;
         this.answerBody = answerBody;
         this.isCorrect = isCorrect;

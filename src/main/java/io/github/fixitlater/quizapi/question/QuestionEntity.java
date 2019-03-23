@@ -1,5 +1,6 @@
 package io.github.fixitlater.quizapi.question;
 
+import io.github.fixitlater.quizapi.BaseEntity;
 import io.github.fixitlater.quizapi.Category;
 import io.github.fixitlater.quizapi.Language;
 import lombok.*;
@@ -17,10 +18,8 @@ import java.util.stream.Collectors;
 @Table(name = "question")
 @Builder
 
-public class QuestionEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class QuestionEntity extends BaseEntity {
+
     @Column(name = "question_body", length = 200)
     private String questionBody;
     @Enumerated(EnumType.STRING)
@@ -31,13 +30,4 @@ public class QuestionEntity {
     private Language language;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
     private List<AnswerEntity> answersEntities;
-
-    public static QuestionEntity fromDTO(QuestionWithAnswersDTO questionWithAnswersDTO) {
-        return QuestionEntity.builder()
-                .questionBody(questionWithAnswersDTO.getQuestionBody())
-                .category(questionWithAnswersDTO.getCategory())
-                .language(questionWithAnswersDTO.getLanguage())
-                .answersEntities(questionWithAnswersDTO.getAnswers().stream().map(AnswerEntity::fromDTO).collect(Collectors.toList()))
-                .build();
-    }
 }

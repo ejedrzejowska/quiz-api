@@ -1,5 +1,6 @@
 package io.github.fixitlater.quizapi.question;
 
+import io.github.fixitlater.quizapi.BaseEntity;
 import io.github.fixitlater.quizapi.question.QuestionEntity;
 import lombok.*;
 
@@ -13,10 +14,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "answer")
 @Builder
-class AnswerEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AnswerEntity extends BaseEntity {
+
     @Column(name = "answer_body", length = 200)
     private String answerBody;
     @Column(name = "is_correct")
@@ -25,12 +24,4 @@ class AnswerEntity {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
-
-    static AnswerEntity fromDTO(AnswerDTO answerDTO){
-        return AnswerEntity.builder()
-                .answerBody(answerDTO.getAnswerBody())
-                .isCorrect(answerDTO.isCorrect())
-                .build();
-    }
-
 }
