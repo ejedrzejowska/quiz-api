@@ -1,5 +1,6 @@
-package io.github.fixitlater.quizapi.entity;
+package io.github.fixitlater.quizapi.question;
 
+import io.github.fixitlater.quizapi.question.QuestionEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "answer")
-public class AnswerEntity {
+@Builder
+class AnswerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,5 +25,12 @@ public class AnswerEntity {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private QuestionEntity question;
+
+    static AnswerEntity fromDTO(AnswerDTO answerDTO){
+        return AnswerEntity.builder()
+                .answerBody(answerDTO.getAnswerBody())
+                .isCorrect(answerDTO.isCorrect())
+                .build();
+    }
 
 }
