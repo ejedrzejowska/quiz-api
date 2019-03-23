@@ -7,12 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "answer")
+@Table(name = "answer", indexes = {@Index(name="idx_answer_question_id", columnList = "question_id")})
 @Builder
 public class AnswerEntity extends BaseEntity {
 
@@ -22,6 +19,6 @@ public class AnswerEntity extends BaseEntity {
     private boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "question_id", insertable = true)
+    @JoinColumn(name = "question_id")
     private QuestionEntity question;
 }

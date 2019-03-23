@@ -10,12 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "question")
+@Table(name = "question", indexes = {@Index(name = "idx_question_id_category", columnList = "category"),
+        @Index(name = "idx_question_id_language", columnList = "language")})
 @Builder
 
 public class QuestionEntity extends BaseEntity {
