@@ -91,7 +91,7 @@ public class QuestionController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<QuestionWithAnswersDTO>> getAllQuestions(@RequestHeader(name = "X-userKey") String userKey,ServletRequest request,
+    public ResponseEntity<List<QuestionWithAnswersDTO>> getAllQuestions(@RequestHeader(name = "X-userKey", required = false) String userKey,ServletRequest request,
                                     @RequestParam(value="category", required = false) String category,
                                     @RequestParam(value="lang", required = false) String language){
         Map<String, String[]> paramMap = request.getParameterMap();
