@@ -6,8 +6,8 @@ import io.github.fixitlater.quizapi.question.converters.DomainObjectConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -56,7 +56,6 @@ public class QuestionService {
                 .stream().map(questionConverter::convert).collect(Collectors.toList());
     }
 
-    @Transactional
     public void addOne(QuestionDTO question) throws RuntimeException {
         QuestionEntity questionEntity;
         if (question != null) {
@@ -68,5 +67,6 @@ public class QuestionService {
                 throw new UnableToSaveQuestionException("Unknown error occurred while saving new question");
             }
         }
+
     }
 }

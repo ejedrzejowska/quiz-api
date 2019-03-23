@@ -25,7 +25,9 @@ public class QuestionDTOToQuestionEntity implements DomainObjectConverter<Questi
                 .build();
         List<AnswerDTO> answers = source.getAnswers();
         for (AnswerDTO answer : answers) {
-            questionEntity.getAnswersEntities().add(answerDTOConverter.convert(answer));
+            AnswerEntity answerEntity = answerDTOConverter.convert(answer);
+            answerEntity.setQuestion(questionEntity);
+            questionEntity.getAnswersEntities().add(answerEntity);
         }
         return questionEntity;
     }
