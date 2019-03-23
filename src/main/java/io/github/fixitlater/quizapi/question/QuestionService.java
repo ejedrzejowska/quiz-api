@@ -26,15 +26,16 @@ public class QuestionService {
         return questionRepository.findById(id).map(questionConverter::convert);
     }
 
-    public QuestionDTO getRandomQuestionByCategoryAndOrLanguage(Category category, Language language) throws NoSuchElementException {
+    public QuestionDTO getRandomQuestion(Category category, Language language) throws NoSuchElementException {
         String languageString = ((language == Language.ANY) ? "%" : language.name());
         String categoryString = ((category == Category.ANY) ? "%" : category.name());
-        try {
-            return questionConverter.convert(questionRepository.findRandomByCategoryAndOrLanguage(categoryString, languageString));
-        } catch (NoSuchElementException e){
-            e.printStackTrace();
-            throw e;
+
+        QuestionEntity maybeEntity = questionRepository.findRandomByCategoryAndOrLanguage(categoryString, languageString);
+        if(maybeEntity == null) {
+            throw new NoSuchElementException("Sorry, we don't have question following category : " + category + " and lang: " + language);
         }
+        return questionConverter.convert(maybeEntity);
+
     }
 
     public List<QuestionDTO> getMultipleRandomQuestionsByCategoryAndOrLanguage(Category category, Language language, int numberOfQuestions) throws NoSuchElementException {

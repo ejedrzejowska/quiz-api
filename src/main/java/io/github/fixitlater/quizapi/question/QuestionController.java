@@ -27,32 +27,11 @@ public class QuestionController {
     }
 
     @GetMapping("/random")
-    public ResponseEntity<QuestionDTO> getRandomQuestion(ServletRequest request,
-                                                         @RequestParam(value="category", required = false) String category,
-                                                         @RequestParam(value="lang", required = false) String language) {
-        QuestionDTO questionDTO;
-        Map<String, String[]> paramMap = request.getParameterMap();
-        Language languageEnum = Language.ANY;
-        Category categoryEnum = Category.ANY;
-        try {
-            categoryEnum = setCategoryEnum(category, categoryEnum, paramMap);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
-        try {
-            languageEnum = setLanguageEnum(language, languageEnum, paramMap);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        try {
-            questionDTO = questionService.getRandomQuestionByCategoryAndOrLanguage(categoryEnum, languageEnum);
-        } catch (NoSuchElementException e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return ResponseEntity.ok(questionDTO);
+    public ResponseEntity<QuestionDTO> getRandomQuestion(@RequestParam(value="category", required = false, defaultValue = "ANY") Category category,
+                                                         @RequestParam(value="lang", required = false, defaultValue = "ANY") Language language) {
+
+        QuestionDTO radonQuestion = questionService.getRandomQuestion(category, language);
+        return ResponseEntity.ok(radonQuestion);
     }
 
     private Category setCategoryEnum(String category, Category categoryEnum, Map<String, String[]> paramMap) throws IllegalArgumentException    {
