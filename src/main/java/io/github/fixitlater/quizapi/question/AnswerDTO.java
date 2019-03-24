@@ -1,8 +1,6 @@
 package io.github.fixitlater.quizapi.question;
 
-
 import lombok.*;
-
 import javax.validation.constraints.NotBlank;
 
 @Data
