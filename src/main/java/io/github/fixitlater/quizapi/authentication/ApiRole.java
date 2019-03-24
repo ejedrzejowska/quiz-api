@@ -1,4 +1,6 @@
 package io.github.fixitlater.quizapi.authentication;
 
-public class authenticationService {
+public enum ApiRole {
+    CLIENT,
+    ADMIN
 }
