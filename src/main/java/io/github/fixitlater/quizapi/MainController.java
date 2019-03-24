@@ -26,15 +26,15 @@ public class MainController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<Category>> getCategoryList(@RequestHeader(name = "X-userKey", required = false) String userKey){
-        if(!authenticationService.canRead(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        return ResponseEntity.ok(Arrays.asList(Category.values()));
+    public ResponseEntity<List<Category>> getCategoryList(@RequestHeader(name = "X-userKey", required = false) String userKey) {
+        if (!authenticationService.canRead(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(Category.getPossibleValues());
     }
 
     @GetMapping("/languages")
-    public ResponseEntity<List<Language>> getLanguageList(@RequestHeader(name = "X-userKey", required = false) String userKey){
-        if(!authenticationService.canRead(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        return ResponseEntity.ok(Arrays.asList(Language.values()));
+    public ResponseEntity<List<Language>> getLanguageList(@RequestHeader(name = "X-userKey", required = false) String userKey) {
+        if (!authenticationService.canRead(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        return ResponseEntity.ok(Language.getPossibleValues());
     }
 
 }
