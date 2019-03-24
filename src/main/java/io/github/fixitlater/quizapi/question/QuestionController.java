@@ -4,7 +4,6 @@ import io.github.fixitlater.quizapi.Category;
 import io.github.fixitlater.quizapi.Language;
 import io.github.fixitlater.quizapi.authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -36,9 +35,9 @@ public class QuestionController {
                                                          @RequestHeader(name = "X-userKey", required = false) String userKey){
         if(!authenticationService.canRead(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
 
-        QuestionDTO radonQuestion = questionService.getRandomQuestion(category, language);
+        QuestionDTO randomQuestion = questionService.getRandomQuestion(category, language);
         System.out.println(UUID.randomUUID());
-        return ResponseEntity.ok(radonQuestion);
+        return ResponseEntity.ok(randomQuestion);
     }
 
     @GetMapping("/randoms")
@@ -89,4 +88,22 @@ public class QuestionController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/delete/{questionId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteQuestion(@PathVariable(value="questionId") Long questionId,
+                                           @RequestHeader(name = "X-userKey", required = false) String userKey) {
+        if (!authenticationService.canWrite(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        questionService.deleteOne(questionId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update/{questionId}", method = RequestMethod.PUT)
+    public ResponseEntity updateQuestion(@PathVariable(value="questionId") Long questionId,
+                                           @RequestBody @Valid QuestionDTO question,
+                                           BindingResult bindingResult,
+                                           @RequestHeader(name = "X-userKey", required = false) String userKey) {
+        if (!authenticationService.canWrite(userKey)) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        if (bindingResult.hasErrors()) throw new UnableToSaveQuestionException("Unable to save question. Validation failed");
+        questionService.updateOne(questionId, question);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

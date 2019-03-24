@@ -7,7 +7,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -26,6 +25,6 @@ public class QuestionEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "language", length = 45)
     private Language language;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
     private List<AnswerEntity> answersEntities;
 }
