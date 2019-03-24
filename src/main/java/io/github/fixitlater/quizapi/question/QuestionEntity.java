@@ -26,6 +26,6 @@ public class QuestionEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "language", length = 45)
     private Language language;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
     private List<AnswerEntity> answersEntities;
 }

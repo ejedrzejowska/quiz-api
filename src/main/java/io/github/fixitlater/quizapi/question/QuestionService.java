@@ -22,6 +22,8 @@ public class QuestionService {
 
     private final DomainObjectConverter<QuestionDTO, QuestionEntity> questionDTOConverter;
 
+    private final DomainObjectConverter<AnswerDTO, AnswerEntity> answerDTOConverter;
+
 
     public Optional<QuestionDTO> findQuestionById(Long id) {
         return questionRepository.findById(id).map(questionConverter::convert);
@@ -67,6 +69,34 @@ public class QuestionService {
                 throw new UnableToSaveQuestionException("Unknown error occurred while saving new question");
             }
         }
+    }
 
+    public void deleteOne(Long questionId) {
+        questionRepository.deleteById(questionId);
+        if (findQuestionById(questionId).isPresent()) throw new DeleteUnsuccesfulException("Question was not deleted");
+    }
+
+    @Transactional()
+    public void updateOne(Long questionId, QuestionDTO questionDTO) {
+        QuestionEntity questionEntity = questionRepository.findById(questionId)
+                .orElseThrow(()-> new NoSuchElementException("Unable to modify question. Unable to find question with given ID"));
+        questionEntity.setQuestionBody(questionDTO.getQuestionBody());
+        questionEntity.setCategory(questionDTO.getCategory());
+        questionEntity.setLanguage(questionDTO.getLanguage());
+
+        if(questionDTO.getAnswers().size()!=questionEntity.getAnswersEntities().size()){
+            throw new UnableToSaveQuestionException("Number of answers cannot be changed during modification.");
+        }
+
+        for (int i = 0; i < questionEntity.getAnswersEntities().size(); i++){
+            questionEntity.getAnswersEntities().get(i).setAnswerBody(questionDTO.getAnswers().get(i).getAnswerBody());
+            questionEntity.getAnswersEntities().get(i).setCorrect(questionDTO.getAnswers().get(i).isCorrect());
+        }
+        try {
+            questionRepository.save(questionEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnableToSaveQuestionException("Unknown error occurred while saving updated question");
+        }
     }
 }
