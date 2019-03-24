@@ -73,7 +73,7 @@ public class QuestionService {
 
     public void deleteOne(Long questionId) {
         questionRepository.deleteById(questionId);
-        if (findQuestionById(questionId).isPresent()) throw new DeleteUnsuccesfulException("Question was not deleted");
+        if (findQuestionById(questionId).isPresent()) throw new DeleteUnsuccessfulException("Question was not deleted");
     }
 
     @Transactional()

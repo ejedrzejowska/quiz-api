@@ -1,6 +1,5 @@
 package io.github.fixitlater.quizapi;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

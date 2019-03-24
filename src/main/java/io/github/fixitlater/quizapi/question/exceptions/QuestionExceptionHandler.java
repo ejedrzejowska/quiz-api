@@ -1,6 +1,6 @@
 package io.github.fixitlater.quizapi.question.exceptions;
 
-import io.github.fixitlater.quizapi.question.DeleteUnsuccesfulException;
+import io.github.fixitlater.quizapi.question.DeleteUnsuccessfulException;
 import io.github.fixitlater.quizapi.question.UnableToSaveQuestionException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class QuestionExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
-    @ExceptionHandler(value = DeleteUnsuccesfulException.class)
+    @ExceptionHandler(value = DeleteUnsuccessfulException.class)
     protected ResponseEntity<Object> handleDeleteUnsuccesful (RuntimeException ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
