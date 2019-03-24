@@ -62,7 +62,7 @@ public class QuestionService {
         QuestionEntity questionEntity;
         if (question != null) {
             questionEntity = questionDTOConverter.convert(question);
-            questionRepository.save(questionEntity);.
+            questionRepository.save(questionEntity);
         }
     }
 
