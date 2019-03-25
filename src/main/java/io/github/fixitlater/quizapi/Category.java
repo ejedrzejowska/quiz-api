@@ -7,7 +7,7 @@ public enum Category {
     ANY,
     ENGLISH,
     MULTIPLICATION;
-    public List<Category> getPossibleValues(){
+    public static List<Category> getPossibleValues(){
         List<Category> categories = Arrays.asList(Category.values());
         categories.remove(Category.ANY);
         return categories;
